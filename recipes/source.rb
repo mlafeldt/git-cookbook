@@ -6,7 +6,7 @@ execute "apt-get-update" do
 end
 
 # Install packages required for building.
-%w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
+%w(build-essential libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
   package(pkg) do
     action :install
   end
