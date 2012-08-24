@@ -27,7 +27,7 @@ bash "build and install git" do
     tar xzf #{tarball}
     cd `tar -tf #{tarball} | head -n1`
 
-    make prefix=/usr/local install
+    make prefix=#{node.git.prefix} install
     git --version
 
     cd ..
@@ -35,5 +35,5 @@ bash "build and install git" do
     rm -f #{tarball}
   EOS
 
-  creates "/usr/local/bin/git"
+  creates "#{node.git.prefix}/bin/git"
 end
