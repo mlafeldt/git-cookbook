@@ -16,6 +16,8 @@ remote_file(tarball) do
   source node.git.url
   mode "0644"
   action :create
+
+  not_if { File.exists? tarball }
 end
 
 # Extract code, compile it, and install Git.
@@ -26,14 +28,10 @@ bash "build and install git" do
   code <<-EOS
     tar xzf #{tarball}
     cd `tar -tf #{tarball} | head -n1`
-
     make prefix=#{node.git.prefix} install
-    git --version
-
     cd ..
     rm -rf `tar -tf #{tarball} | head -n1`
-    rm -f #{tarball}
   EOS
 
-  creates "#{node.git.prefix}/bin/git"
+  not_if "git --version | grep -q #{node.git.version}$"
 end
