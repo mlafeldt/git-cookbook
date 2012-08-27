@@ -1,17 +1,10 @@
-# Update Debian package index.
-# NOTE: Would be better to use the apt cookbook here.
-execute "apt-get-update" do
-  command "apt-get update"
-  ignore_failure true
-end
-
-# Install packages required for building.
+# Install packages required for building Git.
+# See http://git-scm.com/book/en/Getting-Started-Installing-Git
 %w(build-essential libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
   package(pkg) do
     action :install
   end
 end
-
 
 require 'tmpdir'
 

@@ -13,7 +13,8 @@ Requirements
 
 ## Cookbooks:
 
-None
+* You may want to include _apt::default_ to update the Debian package index
+  before _git::source_ does its work.
 
 Usage
 =====

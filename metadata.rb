@@ -6,5 +6,6 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "1.0.0"
 recipe            "git::source", "Installs Git from source"
 
-supports          "ubuntu"
-supports          "debian"
+%w(ubuntu debian).each do |os|
+  supports os
+end
