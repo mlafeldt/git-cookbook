@@ -43,6 +43,7 @@ end
 bash "build and install git" do
   user "root"
   cwd tmp_dir
+  flags "-e"
 
   code <<-EOS
     tar xzf #{tarball}
