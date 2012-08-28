@@ -37,9 +37,7 @@ tarball = File.join(tmp_dir, "git-#{node.git.version}.tar.gz")
 remote_file(tarball) do
   source node.git.url
   mode "0644"
-  action :create
-
-  not_if { File.exists? tarball }
+  checksum node.git.checksum
 end
 
 # Extract code, compile it, and install Git.
