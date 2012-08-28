@@ -17,9 +17,12 @@
 # limitations under the License.
 #
 
+# Install packages to compile C programs (gcc, make, etc.)
+include_recipe "build-essential"
+
 # Install packages required for building Git.
 # See http://git-scm.com/book/en/Getting-Started-Installing-Git
-%w(build-essential libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
+%w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
   package(pkg) do
     action :install
   end

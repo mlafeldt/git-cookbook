@@ -9,3 +9,7 @@ recipe            "git::source", "Installs Git from source"
 %w(ubuntu debian).each do |os|
   supports os
 end
+
+%w(build-essential).each do |cb|
+  depends cb
+end
