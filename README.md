@@ -1,7 +1,7 @@
 Description
 ===========
 
-Installs Git from source.
+Installs Git from source and optionally configures it.
 
 Requirements
 ============
@@ -19,7 +19,13 @@ Requirements
 Usage
 =====
 
+This cookbook primarily installs Git from source:
+
     include_recipe "git::source"
+
+It can also be used to provision a system-wide configuration for Git:
+
+    include_recipe "git::config"
 
 License and Author
 ==================
