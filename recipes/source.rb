@@ -38,6 +38,7 @@ remote_file(tarball) do
   source node['git']['url']
   mode "0644"
   checksum node['git']['checksum']
+  action :create
 end
 
 # Extract code, compile it, and install Git.

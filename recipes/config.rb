@@ -24,4 +24,5 @@ template "#{node['git']['prefix']}/etc/gitconfig" do
   owner "root"
   group "root"
   mode "0644"
+  action :create
 end
