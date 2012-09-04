@@ -1,9 +1,6 @@
-#
-# Generated system config for git v<%= node.git.version %>
-#
-<% node.git.config.keys.each do |section| %>
+<% node['git']['config'].each do |section, options| %>
 [<%= section %>]
-	<% node.git.config[section].each do |key, value| %>
+	<% options.each do |key, value| %>
 	<%= key %> = <%= value %>
 	<% end %>
 <% end %>
