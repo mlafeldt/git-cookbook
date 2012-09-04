@@ -31,13 +31,13 @@ end
 require 'tmpdir'
 
 tmp_dir = Dir.tmpdir
-tarball = File.join(tmp_dir, "git-#{node.git.version}.tar.gz")
+tarball = File.join(tmp_dir, "git-#{node['git']['version']}.tar.gz")
 
 # Download source tarball.
 remote_file(tarball) do
-  source node.git.url
+  source node['git']['url']
   mode "0644"
-  checksum node.git.checksum
+  checksum node['git']['checksum']
 end
 
 # Extract code, compile it, and install Git.
@@ -49,10 +49,10 @@ bash "build and install git" do
   code <<-EOS
     tar xzf #{tarball}
     cd `tar -tf #{tarball} | head -n1`
-    make prefix=#{node.git.prefix} install
+    make prefix=#{node['git']['prefix']} install
     cd ..
     rm -rf `tar -tf #{tarball} | head -n1`
   EOS
 
-  not_if "git --version | grep -q #{node.git.version}$"
+  not_if "git --version | grep -q #{node['git']['version']}$"
 end

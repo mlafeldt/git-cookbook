@@ -19,7 +19,7 @@
 
 include_recipe "git::source"
 
-template "#{node.git.prefix}/etc/gitconfig" do
+template "#{node['git']['prefix']}/etc/gitconfig" do
   source "gitconfig.erb"
   owner "root"
   group "root"
