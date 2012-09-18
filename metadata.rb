@@ -1,3 +1,4 @@
+name              "git"
 maintainer        "Mathias Lafeldt"
 maintainer_email  "mathias.lafeldt@gmail.com"
 license           "Apache 2.0"
@@ -7,10 +8,7 @@ version           "1.0.0"
 recipe            "git::source", "Installs Git from source"
 recipe            "git::config", "Provisions a system-wide Git config"
 
-%w(ubuntu debian).each do |os|
-  supports os
-end
+supports "ubuntu"
+supports "debian"
 
-%w(build-essential).each do |cb|
-  depends cb
-end
+depends "build-essential"
