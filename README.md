@@ -16,16 +16,21 @@ Requirements
 * apt (optional; you may want to include it to update the Debian package index)
 * build-essential
 
-Usage
-=====
+Recipes
+=======
 
-This cookbook primarily installs Git from source:
+## source
 
-    include_recipe "git::source"
+Installs Git from source.
 
-It can also be used to provision a system-wide configuration for Git:
+This recipe can be run without any configuration. You might want to set
+`node['git']['version']` to a specific version of Git to install.
 
-    include_recipe "git::config"
+## config
+
+Provisions a system-wide configuration for Git.
+
+For this recipe, set `node['git']['config']` accordingly.
 
 License and Author
 ==================
