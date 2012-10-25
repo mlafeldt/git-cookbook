@@ -1,0 +1,7 @@
+# Bundler
+/.bundle/
+/bin/
+/vendor/gems/
+
+# ChefSpec
+/cookbooks/
