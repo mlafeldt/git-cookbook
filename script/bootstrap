@@ -22,4 +22,6 @@ fi
 echo "  + Bootstrapping your gems..."
 bundle install --binstubs $BUNDLER_OPTS
 
+bundle exec chef-solo --version
+
 echo "Done!"
