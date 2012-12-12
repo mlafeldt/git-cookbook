@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe 'The recipe git::config' do
-  let (:chef_run) do
-    Chef::Recipe.any_instance.stub(:include_recipe)
-    ChefSpec::ChefRunner.new.converge 'git::config'
-  end
+  let (:chef_run) { ChefSpec::ChefRunner.new.converge 'git::config' }
 
   # content test needs ordered hash
   if RUBY_VERSION >= '1.9'
