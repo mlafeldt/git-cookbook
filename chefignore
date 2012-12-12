@@ -1,5 +1,6 @@
 */*file
 */*file.lock
 */bin
+*/chefignore
 */cookbooks
 */vendor
