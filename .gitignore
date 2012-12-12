@@ -3,5 +3,9 @@
 /bin/
 /vendor/gems/
 
-# ChefSpec
+# Berkshelf
 /cookbooks/
+Berksfile.lock
+
+# Vagrant
+.vagrant
