@@ -6,7 +6,16 @@ def cookbook_metadata
   metadata
 end
 
-COOKBOOK_NAME  = cookbook_metadata.name
+def cookbook_name
+  name = cookbook_metadata.name
+  if name.nil? || name.empty?
+    File.basename(File.dirname(__FILE__))
+  else
+    name
+  end
+end
+
+COOKBOOK_NAME = ENV['COOKBOOK_NAME'] || cookbook_name
 COOKBOOKS_PATH = ENV['COOKBOOKS_PATH'] || 'cookbooks'
 
 
