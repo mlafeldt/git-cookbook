@@ -26,7 +26,7 @@ end
 
 desc 'Run knife cookbook test'
 task :knife => :setup_cookbooks do
-  sh 'knife', 'cookbook', 'test', COOKBOOK_NAME,
+  sh 'knife', 'cookbook', 'test', COOKBOOK_NAME, '--config', '.knife.rb',
      '--cookbook-path', COOKBOOKS_PATH
 end
 
