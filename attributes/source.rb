@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-default['git']['version'] = "1.7.12"
-default['git']['url'] = "https://github.com/gitster/git/tarball/v#{node['git']['version']}"
-default['git']['checksum'] = "382a4627ea79"
-default['git']['prefix'] = "/usr/local"
+git_version = '1.8.0'
+
+default['git']['version']  = git_version
+default['git']['url']      = "https://github.com/gitster/git/tarball/v#{git_version}"
+default['git']['checksum'] = '5d0ce3dacfd4'
+default['git']['prefix']   = '/usr/local'
