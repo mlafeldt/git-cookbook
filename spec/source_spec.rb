@@ -3,7 +3,6 @@ require 'tmpdir'
 
 describe 'The recipe git::source' do
   let (:chef_run) do
-    Chef::Recipe.any_instance.stub(:include_recipe)
     chef_run = ChefSpec::ChefRunner.new
     chef_run.node.set['git'] = { 'version' => '1.8.0' }
     chef_run.converge 'git::source'
