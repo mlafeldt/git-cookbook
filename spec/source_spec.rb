@@ -1,12 +1,10 @@
 require 'spec_helper'
-require 'tmpdir'
 
 describe 'The recipe git::source' do
-  let (:chef_run) do
-    chef_run = ChefSpec::ChefRunner.new
-    chef_run.node.set['git'] = { 'version' => '1.8.0' }
-    chef_run.converge 'git::source'
-    chef_run
+  let (:chef_run) { ChefSpec::ChefRunner.new.converge 'git::source' }
+
+  it 'should include the recipe build-essential' do
+    chef_run.should include_recipe 'build-essential'
   end
 
   %w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
@@ -17,7 +15,8 @@ describe 'The recipe git::source' do
 
   it 'should download the source tarball' do
     chef_run.should create_remote_file \
-      File.join(Chef::Config[:file_cache_path], 'git-1.8.0.tar.gz')
+      File.join(Chef::Config[:file_cache_path],
+                "git-#{chef_run.node['git']['version']}.tar.gz")
   end
 
   it 'should execute bash to build and install git' do
