@@ -28,16 +28,14 @@ include_recipe "build-essential"
   end
 end
 
-require 'tmpdir'
-
-tmp_dir = Dir.tmpdir
+tmp_dir = Chef::Config[:file_cache_path]
 tarball = File.join(tmp_dir, "git-#{node['git']['version']}.tar.gz")
 
 # Download source tarball.
-remote_file(tarball) do
+remote_file tarball do
   source node['git']['url']
-  mode "0644"
   checksum node['git']['checksum']
+  mode "0644"
   action :create
 end
 

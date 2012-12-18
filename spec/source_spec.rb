@@ -16,7 +16,8 @@ describe 'The recipe git::source' do
   end
 
   it 'should download the source tarball' do
-    chef_run.should create_remote_file File.join(Dir.tmpdir, 'git-1.8.0.tar.gz')
+    chef_run.should create_remote_file \
+      File.join(Chef::Config[:file_cache_path], 'git-1.8.0.tar.gz')
   end
 
   it 'should execute bash to build and install git' do
