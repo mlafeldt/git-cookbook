@@ -1,6 +1,6 @@
-<% @config.each do |section, options| %>
+<% @config.sort.each do |section, options| %>
 [<%= section %>]
-	<% options.each do |key, value| %>
+	<% options.sort.each do |key, value| %>
 	<%= key %> = <%= value %>
 	<% end %>
 <% end %>
