@@ -1,4 +1,4 @@
-<% node['git']['config'].each do |section, options| %>
+<% @config.each do |section, options| %>
 [<%= section %>]
 	<% options.each do |key, value| %>
 	<%= key %> = <%= value %>

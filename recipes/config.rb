@@ -25,4 +25,5 @@ template "#{node['git']['prefix']}/etc/gitconfig" do
   group "root"
   mode "0644"
   action :create
+  variables(:config => node['git']['config'])
 end
