@@ -1,5 +1,5 @@
-1.0.6 (WIP)
------------
+1.0.6 (Jan 16 2013)
+-------------------
 
 * Update Git to version 1.8.1.
 * Update gems.
