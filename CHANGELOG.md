@@ -1,6 +1,7 @@
 1.0.6 (WIP)
 -----------
 
+* Update Git to version 1.8.1.
 * Update gems.
 * Update copyright year.
 * Add this CHANGELOG file.
