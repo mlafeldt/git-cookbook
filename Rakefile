@@ -17,6 +17,8 @@
 #
 
 require 'chef/cookbook/metadata'
+require 'rake/clean'
+require 'rspec/core/rake_task'
 
 def cookbook_metadata
   metadata = Chef::Cookbook::Metadata.new
@@ -34,37 +36,67 @@ def cookbook_name
 end
 
 COOKBOOK_NAME = ENV['COOKBOOK_NAME'] || cookbook_name
-COOKBOOKS_PATH = ENV['COOKBOOKS_PATH'] || 'cookbooks'
+FIXTURES_PATH = ENV['FIXTURES_PATH'] || 'fixtures'
 
+CLOBBER.include FIXTURES_PATH, 'Berksfile.lock', '.vagrant'
 
-task :setup_cookbooks do
-  rm_rf COOKBOOKS_PATH
-  sh 'berks', 'install', '--path', COOKBOOKS_PATH
+namespace :test do
+  task :prepare do
+    sh 'berks', 'install', '--path', FIXTURES_PATH
+    # Run cleanup at exit unless an exception was raised.
+    at_exit { Rake::Task['test:cleanup'].invoke if $!.nil? }
+  end
+
+  task :cleanup do
+    rm_rf FIXTURES_PATH
+  end
+
+  desc 'Run Knife syntax checks'
+  task :syntax => :prepare do
+    sh 'knife', 'cookbook', 'test', COOKBOOK_NAME, '--config', '.knife.rb',
+       '--cookbook-path', FIXTURES_PATH
+  end
+
+  desc 'Run Foodcritic lint checks'
+  task :lint => :prepare do
+    # TODO: FoodCritic::Rake::LintTask is still experimental
+    sh 'foodcritic', '--epic-fail', 'any',
+       File.join(FIXTURES_PATH, COOKBOOK_NAME)
+  end
+
+  desc 'Run ChefSpec examples'
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = File.join(FIXTURES_PATH, COOKBOOK_NAME, 'spec', '*_spec.rb')
+    t.rspec_opts = '--color --format documentation'
+  end
+  task :spec => :prepare
+
+  desc 'Run minitest integration tests with Vagrant'
+  task :integration do
+    # This variable is evaluated by Berksfile and Vagrantfile, and will add
+    # minitest-handler to Chef's run list.
+    ENV['INTEGRATION_TEST'] = '1'
+
+    # Provision VM depending on its state.
+    case `vagrant status`
+    when /The VM is running/ then ['provision']
+    when /To resume this VM/ then ['up', 'provision']
+    else ['up']
+    end.each { |cmd| sh 'vagrant', cmd }
+  end
+
+  desc 'Tear down VM used for integration tests'
+  task :integration_teardown do
+    # Shut VM down unless INTEGRATION_TEARDOWN is set to a different command.
+    sh ENV.fetch('INTEGRATION_TEARDOWN', 'vagrant halt --force')
+  end
+
+  desc 'Run test:syntax, test:lint, test:spec, and test:integration'
+  task :all => [:syntax, :lint, :spec, :integration, :integration_teardown]
 end
 
-desc 'Run knife cookbook test'
-task :knife => :setup_cookbooks do
-  sh 'knife', 'cookbook', 'test', COOKBOOK_NAME, '--config', '.knife.rb',
-     '--cookbook-path', COOKBOOKS_PATH
-end
-
-desc 'Run Foodcritic lint checks'
-task :foodcritic => :setup_cookbooks do
-  sh 'foodcritic', '--epic-fail', 'any',
-     File.join(COOKBOOKS_PATH, COOKBOOK_NAME)
-end
-
-desc 'Run ChefSpec examples'
-task :chefspec => :setup_cookbooks do
-  sh 'rspec', '--color', '--format', 'documentation',
-     File.join(COOKBOOKS_PATH, COOKBOOK_NAME, 'spec')
-end
-
-desc 'Run all tests'
-task :test => [:knife, :foodcritic, :chefspec]
+# Aliases for backwards compatibility and convenience
+task :test => 'test:all'
+task :spec => 'test:spec'
 
 task :default => :test
-
-# aliases
-task :lint => :foodcritic
-task :spec => :chefspec
