@@ -1,3 +1,12 @@
+1.0.9 (Aug 27 2013)
+-------------------
+
+* Update Git to version 1.8.4.
+* Use [chef-bones](https://github.com/mlafeldt/chef-bones) gem for testing.
+* Add serverspec integration test.
+* No longer downgrade RubyGems on Travis.
+
+
 1.0.8 (Apr 19 2013)
 -------------------
 
