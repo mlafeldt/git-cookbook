@@ -5,8 +5,8 @@
 /vendor/gems/
 
 # Berkshelf
-/fixtures/
+/vendor/cookbooks/
 Berksfile.lock
 
 # Vagrant
-.vagrant
+/.vagrant/
