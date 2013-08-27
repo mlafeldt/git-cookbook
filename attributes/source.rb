@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-git_version = '1.8.2'
+git_version = '1.8.4'
 
 default['git']['version']  = git_version
 default['git']['url']      = "https://github.com/gitster/git/tarball/v#{git_version}"
