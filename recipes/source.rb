@@ -22,7 +22,7 @@ include_recipe 'build-essential'
 packages = %w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev)
 packages.each { |pkg| package pkg }
 
-tmp_dir = File.join(Chef::Config[:file_cache_path], 'git')
+tmp_dir = Chef::Config[:file_cache_path]
 tarball = File.join(tmp_dir, "git-#{node['git']['version']}.tar.gz")
 
 directory tmp_dir do

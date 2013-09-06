@@ -12,7 +12,7 @@ describe 'The recipe git::source' do
     chef_run.converge 'git::source'
     chef_run
   end
-  let (:tmp_dir) { File.join(Chef::Config[:file_cache_path], 'git') }
+  let (:tmp_dir) { Chef::Config[:file_cache_path] }
 
   it 'installs packages to compile C programs (gcc, make, etc.)' do
     chef_run.should include_recipe 'build-essential'
@@ -23,7 +23,7 @@ describe 'The recipe git::source' do
     packages.each { |pkg| chef_run.should install_package pkg }
   end
 
-  it 'creates a temporary directory to store the git source tarball' do
+  it 'creates a temporary directory to store build products' do
     chef_run.should create_directory tmp_dir
   end
 
