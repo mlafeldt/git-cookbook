@@ -13,11 +13,11 @@ describe 'The recipe git::config' do
     chef_run
   end
 
-  it 'should include the recipe git::source' do
+  it 'compiles and installs git from source' do
     chef_run.should include_recipe 'git::source'
   end
 
-  it 'should create the config file with the right content' do
+  it 'creates the system-wide git config file with the right content' do
     content = <<EOF
 [alias]
 	ci = commit -v

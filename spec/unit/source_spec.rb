@@ -14,27 +14,26 @@ describe 'The recipe git::source' do
   end
   let (:tmp_dir) { File.join(Chef::Config[:file_cache_path], 'git') }
 
-  it 'should include the recipe build-essential' do
+  it 'installs packages to compile C programs (gcc, make, etc.)' do
     chef_run.should include_recipe 'build-essential'
   end
 
-  %w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev).each do |pkg|
-    it "should install the package #{pkg}" do
-      chef_run.should install_package pkg
-    end
+  it 'installs packages required for building git' do
+    packages = %w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev)
+    packages.each { |pkg| chef_run.should install_package pkg }
   end
 
-  it 'creates a temporary directory to store the source tarball' do
+  it 'creates a temporary directory to store the git source tarball' do
     chef_run.should create_directory tmp_dir
   end
 
-  it 'downloads the source tarball' do
+  it 'downloads the git source tarball' do
     version = chef_run.node['git']['version']
     tarball = File.join(tmp_dir, "git-#{version}.tar.gz")
     chef_run.should create_remote_file tarball
   end
 
-  it 'should execute bash to build and install git' do
+  it 'builds and installs git' do
     chef_run.should execute_bash_script 'build and install git'
   end
 end
