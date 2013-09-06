@@ -28,8 +28,15 @@ include_recipe "build-essential"
   end
 end
 
-tmp_dir = Chef::Config[:file_cache_path]
+tmp_dir = File.join(Chef::Config[:file_cache_path], 'git')
 tarball = File.join(tmp_dir, "git-#{node['git']['version']}.tar.gz")
+
+# Create temporary folder.
+directory tmp_dir do
+  recursive true
+  action :create
+  not_if "test -d #{tmp_dir}"
+end
 
 # Download source tarball.
 remote_file tarball do

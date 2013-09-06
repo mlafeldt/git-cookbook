@@ -12,6 +12,7 @@ describe 'The recipe git::source' do
     chef_run.converge 'git::source'
     chef_run
   end
+  let (:tmp_dir) { File.join(Chef::Config[:file_cache_path], 'git') }
 
   it 'should include the recipe build-essential' do
     chef_run.should include_recipe 'build-essential'
@@ -23,10 +24,14 @@ describe 'The recipe git::source' do
     end
   end
 
-  it 'should download the source tarball' do
-    chef_run.should create_remote_file \
-      File.join(Chef::Config[:file_cache_path],
-                "git-#{chef_run.node['git']['version']}.tar.gz")
+  it 'creates a temporary directory to store the source tarball' do
+    chef_run.should create_directory tmp_dir
+  end
+
+  it 'downloads the source tarball' do
+    version = chef_run.node['git']['version']
+    tarball = File.join(tmp_dir, "git-#{version}.tar.gz")
+    chef_run.should create_remote_file tarball
   end
 
   it 'should execute bash to build and install git' do
