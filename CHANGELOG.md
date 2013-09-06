@@ -1,3 +1,9 @@
+1.1.1 (Sep 6 2013)
+------------------
+
+* Bug fix: Fix name of temporary directory to store build products.
+
+
 1.1.0 (Sep 6 2013)
 ------------------
 
