@@ -70,5 +70,4 @@ Contributing
 
 
 [chef-bones]: https://github.com/mlafeldt/chef-bones
-[chef-bones-testing]:
-https://github.com/mlafeldt/chef-bones/blob/master/TESTING.md
+[chef-bones-testing]: https://github.com/mlafeldt/chef-bones/blob/master/TESTING.md
