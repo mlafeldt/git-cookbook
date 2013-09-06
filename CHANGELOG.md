@@ -1,3 +1,13 @@
+1.1.0 (Sep 6 2013)
+------------------
+
+* Bug fix: Create temporary directory to store Git source tarball if it does not
+  exist.
+* Better unit and integration tests.
+* Remove comments from `git::source` recipe.
+* Update gems.
+
+
 1.0.9 (Aug 27 2013)
 -------------------
 
