@@ -15,25 +15,25 @@ describe 'The recipe git::source' do
   let (:tmp_dir) { Chef::Config[:file_cache_path] }
 
   it 'installs packages to compile C programs (gcc, make, etc.)' do
-    chef_run.should include_recipe 'build-essential'
+    expect(chef_run).to include_recipe 'build-essential'
   end
 
   it 'installs packages required for building git' do
     packages = %w(libcurl4-gnutls-dev libexpat1-dev gettext zlib1g-dev libssl-dev)
-    packages.each { |pkg| chef_run.should install_package pkg }
+    packages.each { |pkg| expect(chef_run).to install_package pkg }
   end
 
   it 'creates a temporary directory to store build products' do
-    chef_run.should create_directory tmp_dir
+    expect(chef_run).to create_directory tmp_dir
   end
 
   it 'downloads the git source tarball' do
     version = chef_run.node['git']['version']
     tarball = File.join(tmp_dir, "git-#{version}.tar.gz")
-    chef_run.should create_remote_file tarball
+    expect(chef_run).to create_remote_file tarball
   end
 
   it 'builds and installs git' do
-    chef_run.should execute_bash_script 'build and install git'
+    expect(chef_run).to execute_bash_script 'build and install git'
   end
 end

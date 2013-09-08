@@ -14,7 +14,7 @@ describe 'The recipe git::config' do
   end
 
   it 'compiles and installs git from source' do
-    chef_run.should include_recipe 'git::source'
+    expect(chef_run).to include_recipe 'git::source'
   end
 
   it 'creates the system-wide git config file with the right content' do
@@ -30,6 +30,6 @@ describe 'The recipe git::config' do
 [push]
 	default = simple
 EOF
-    chef_run.should create_file_with_content('/usr/local/etc/gitconfig', content)
+    expect(chef_run).to create_file_with_content('/usr/local/etc/gitconfig', content)
   end
 end
