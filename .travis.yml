@@ -6,7 +6,7 @@ rvm:
 
 install: bundle install
 
-script: bundle exec rake test:travis
+script: bundle exec rake lint spec
 
 branches:
   only:

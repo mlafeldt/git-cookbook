@@ -1,4 +1,4 @@
-require 'chef_bones/unit_spec_helper'
+require 'spec_helper'
 
 describe 'The recipe git::source' do
   let (:chef_run) do
