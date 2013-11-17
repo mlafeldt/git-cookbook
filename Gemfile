@@ -1,3 +1,8 @@
-source 'https://rubygems.org/'
+source "https://rubygems.org"
 
-gem 'chef-bones'
+gem "berkshelf"
+
+group :integration do
+  gem "test-kitchen", "~> 1.0.0.alpha"
+  gem "kitchen-vagrant"
+end
