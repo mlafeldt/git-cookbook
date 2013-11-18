@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "berkshelf"
-gem "chefspec", "~> 2.0"
+gem "chefspec"
 gem "foodcritic"
 gem "rake"
 

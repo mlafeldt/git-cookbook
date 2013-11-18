@@ -1,3 +1,8 @@
-require 'chefspec'
+require "chefspec"
+require "chefspec/berkshelf"
 
-COOKBOOK_PATH = ENV.fetch('COOKBOOK_PATH', 'vendor/cookbooks')
+RSpec.configure do |c|
+  c.platform  = "ubuntu"
+  c.version   = "12.04"
+  c.log_level = :warn
+end
