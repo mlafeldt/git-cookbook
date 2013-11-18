@@ -1,14 +1,10 @@
-require "rspec/core/rake_task"
+require "foodcritic"
 require "kitchen/rake_tasks"
+require "rspec/core/rake_task"
 
 desc "Run Foodcritic lint checks"
-task :lint do
-  require "foodcritic"
-  result = FoodCritic::Linter.new.check(
-    :cookbook_paths => [Dir.pwd],
-    :fail_tags => ["any"],
-  )
-  abort result.to_s if result.warnings.any?
+FoodCritic::Rake::LintTask.new(:lint) do |t|
+  t.options = { :fail_tags => ["any"] }
 end
 
 desc "Run ChefSpec examples"
