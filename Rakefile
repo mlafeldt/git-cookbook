@@ -1,5 +1,4 @@
 require "foodcritic"
-require "kitchen/rake_tasks"
 require "rspec/core/rake_task"
 
 desc "Run Foodcritic lint checks"
@@ -10,13 +9,18 @@ end
 desc "Run ChefSpec examples"
 RSpec::Core::RakeTask.new(:spec)
 
-# Test Kitchen Rake task generator
-Kitchen::RakeTasks.new
-
-desc "Alias for kitchen:all"
-task :integration => "kitchen:all"
-
-desc "Run tasks lint, spec, and integration"
-task :test => [:lint, :spec, :integration]
-
+desc "Run all tests"
+task :test => [:lint, :spec]
 task :default => :test
+
+begin
+  require "kitchen/rake_tasks"
+  Kitchen::RakeTasks.new
+
+  desc "Alias for kitchen:all"
+  task :integration => "kitchen:all"
+
+  task :test => :integration
+rescue LoadError
+  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV['CI']
+end
