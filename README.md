@@ -35,6 +35,8 @@ For this recipe, set `node['git']['config']` accordingly.
 Testing
 -------
 
+[![Build Status](https://travis-ci.org/mlafeldt/git-cookbook.png?branch=master)](https://travis-ci.org/mlafeldt/git-cookbook)
+
 The cookbook provides the following Rake tasks for testing:
 
     rake integration                  # Alias for kitchen:all
@@ -43,8 +45,6 @@ The cookbook provides the following Rake tasks for testing:
     rake lint                         # Lint Chef cookbooks
     rake spec                         # Run ChefSpec examples
     rake test                         # Run all tests
-
-[![Build Status](https://travis-ci.org/mlafeldt/git-cookbook.png?branch=master)](https://travis-ci.org/mlafeldt/git-cookbook)
 
 License and Author
 ------------------
