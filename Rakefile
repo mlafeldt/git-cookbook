@@ -13,6 +13,10 @@ RSpec::Core::RakeTask.new(:spec)
 # Test Kitchen Rake task generator
 Kitchen::RakeTasks.new
 
-desc "Run tasks lint, spec, and kitchen:all"
-task :test => [:lint, :spec, 'kitchen:all']
+desc "Alias for kitchen:all"
+task :integration => "kitchen:all"
+
+desc "Run tasks lint, spec, and integration"
+task :test => [:lint, :spec, :integration]
+
 task :default => :test
