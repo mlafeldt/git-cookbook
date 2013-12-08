@@ -1,5 +1,5 @@
-# vi: set ft=ruby :
+site :opscode
 
 metadata
 
-cookbook 'apt'
+cookbook "apt"
