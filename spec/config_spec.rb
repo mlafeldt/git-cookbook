@@ -18,9 +18,10 @@ describe "git::config" do
     expect(chef_run).to include_recipe "git::source"
   end
 
+  # rubocop:disable Tab
   it "creates the system-wide git config file with the right content" do
-    expect(chef_run).to render_file("/usr/local/etc/gitconfig").
-      with_content <<EOS
+    expect(chef_run).to render_file("/usr/local/etc/gitconfig")
+      .with_content <<EOS
 [alias]
 	ci = commit -v
 	di = diff
@@ -33,4 +34,5 @@ describe "git::config" do
 	default = simple
 EOS
   end
+  # rubocop:enable Tab
 end
