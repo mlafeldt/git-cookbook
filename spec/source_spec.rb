@@ -36,7 +36,7 @@ describe "git::source" do
     expect(chef_run).to run_bash("build and install git").with(
       :user  => "root",
       :cwd   => tmp_dir,
-      :flags => "-e",
+      :flags => "-e"
     )
   end
 end
